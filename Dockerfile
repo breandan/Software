@@ -28,6 +28,10 @@ RUN pip install --upgrade --user \
         pymongo==3.5.1 \
         ruamel.yaml==0.15.34
 
+RUN git clone https://github.com/duckietown/software /home/
+
+RUN source /opt/ros/kinetic/setup.bash && catkin_make -C /home/software/catkin_ws/
+
 RUN echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
 
 CMD ["bash"]
