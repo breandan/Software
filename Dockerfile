@@ -12,7 +12,6 @@ COPY ./docker/ /usr/bin
 
 RUN [ "cross-build-start" ]
 
-
 # Add ROS apt repository
 RUN echo "deb http://packages.ros.org/ros/ubuntu xenial main" > /etc/apt/sources.list.d/ros-latest.list \
     && apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net --recv-key 0xB01FA116
@@ -34,6 +33,7 @@ RUN apt-get install -yq --no-install-recommends --fix-missing \
     libblas-dev liblapack-dev libatlas-base-dev libyaml-cpp-dev libpcl-dev libvtk6-dev libboost-all-dev
 
 # Python Dependencies
+# https://github.com/duckietown/duckuments/blob/dd3c5229526bcbb3e2f6cacc813b1313e7a4dbbc/docs/atoms_17_opmanual_duckiebot/atoms_17_setup_duckiebot_DB17-jwd/1_1_reproducing_ubuntu_image.md#install-packages
 RUN apt-get install -yq --no-install-recommends --fix-missing \
     python-dev python-pip ipython python-sklearn python-smbus python-termcolor python-tables \
     python-lxml python-bs4 python-openssl python-service-identity python-rosdep python-catkin-tools
@@ -57,8 +57,6 @@ RUN pip install --upgrade --user \
     procgraph==1.10.6 \
     pymongo==3.5.1 \
     ruamel.yaml==0.15.34
-
-# RUN rosdep init && rosdep update
 
 RUN mkdir /home/software
 
