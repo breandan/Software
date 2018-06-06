@@ -27,7 +27,7 @@ RUN apt-get install -yq --no-install-recommends --fix-missing \
 
 # System dependencies
 RUN apt-get install -yq --no-install-recommends --fix-missing \
-    sudo locales locales-all build-essential i2c-tools \
+    sudo locales locales-all build-essential i2c-tools net-tools \
     etckeeper emacs vim byobu zsh git git-extras htop atop nethogs iftop apt-file ntpdate gfortran \
     libxslt-dev libxml2-dev \
     libblas-dev liblapack-dev libatlas-base-dev libyaml-cpp-dev libpcl-dev libvtk6-dev libboost-all-dev
@@ -36,7 +36,8 @@ RUN apt-get install -yq --no-install-recommends --fix-missing \
 # https://github.com/duckietown/duckuments/blob/dd3c5229526bcbb3e2f6cacc813b1313e7a4dbbc/docs/atoms_17_opmanual_duckiebot/atoms_17_setup_duckiebot_DB17-jwd/1_1_reproducing_ubuntu_image.md#install-packages
 RUN apt-get install -yq --no-install-recommends --fix-missing \
     python-dev python-pip ipython python-sklearn python-smbus python-termcolor python-tables \
-    python-lxml python-bs4 python-openssl python-service-identity python-rosdep python-catkin-tools
+    python-lxml python-bs4 python-openssl python-service-identity python-rosdep python-catkin-tools \    
+    python-setuptools
 
 # Cleanup packages list
 RUN apt-get clean && rm -rf /var/lib/apt/lists
@@ -48,7 +49,7 @@ RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 
 RUN pip install --upgrade --user \
-    setuptools platformio wheel \
+    platformio \
     PyContracts==1.7.15 \
     DecentLogs==1.1.2\
     QuickApp==1.3.8 \
@@ -57,6 +58,8 @@ RUN pip install --upgrade --user \
     procgraph==1.10.6 \
     pymongo==3.5.1 \
     ruamel.yaml==0.15.34
+
+RUN rosdep update
 
 RUN mkdir /home/software
 
@@ -67,6 +70,7 @@ COPY ./docker/ros_entrypoint.sh .
 RUN /bin/bash -c "source /opt/ros/kinetic/setup.bash && catkin_make -C /home/software/catkin_ws/"
 
 RUN echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
+RUN echo "source /home/environment.sh" >> ~/.bashrc
 
 RUN [ "cross-build-end" ]
 
