@@ -12,32 +12,31 @@ COPY ./docker/ /usr/bin
 
 RUN [ "cross-build-start" ]
 
+
+# Add ROS apt repository
 RUN echo "deb http://packages.ros.org/ros/ubuntu xenial main" > /etc/apt/sources.list.d/ros-latest.list \
     && apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net --recv-key 0xB01FA116
 
 RUN apt-get clean && apt-get update && apt-get upgrade -y
 
+# ROS Dependencies
 RUN apt-get install -yq --no-install-recommends --fix-missing \
     ros-kinetic-robot=1.3.2-0* ros-kinetic-perception=1.3.2-0* \
-    ros-kinetic-navigation ros-kinetic-robot-localization
+    ros-kinetic-navigation ros-kinetic-robot-localization \
+    ros-kinetic-roslint ros-kinetic-hector-trajectory-server \
+    ros-kinetic-ros-tutorials ros-kinetic-common-tutorials
 
 # System dependencies
 RUN apt-get install -yq --no-install-recommends --fix-missing \
-    sudo locales locales-all build-essential \
+    sudo locales locales-all build-essential i2c-tools \
     etckeeper emacs vim byobu zsh git git-extras htop atop nethogs iftop apt-file ntpdate gfortran \
     libxslt-dev libxml2-dev \
     libblas-dev liblapack-dev libatlas-base-dev libyaml-cpp-dev libpcl-dev libvtk6-dev libboost-all-dev
 
 # Python Dependencies
 RUN apt-get install -yq --no-install-recommends --fix-missing \
-    python-dev python-pip ipython python-sklearn python-smbus python-termcolor \
-    python-tables i2c-tools python-lxml python-bs4 python-openssl python-service-identity \
-    python-rosdep python-catkin-tools
-
-# ROS Dependencies
-RUN apt-get install -yq --no-install-recommends --fix-missing \
-    ros-kinetic-roslint ros-kinetic-hector-trajectory-server \
-    ros-kinetic-ros-tutorials ros-kinetic-common-tutorials
+    python-dev python-pip ipython python-sklearn python-smbus python-termcolor python-tables \
+    python-lxml python-bs4 python-openssl python-service-identity python-rosdep python-catkin-tools
 
 # Cleanup packages list
 RUN apt-get clean && rm -rf /var/lib/apt/lists
