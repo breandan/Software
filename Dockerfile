@@ -43,7 +43,7 @@ RUN apt-get install -yq --no-install-recommends --fix-missing \
 RUN apt-get clean && rm -rf /var/lib/apt/lists
     
 # http://rettgergalactic.com/blog/2016/01/fixing-no-rule-to-make-target-usrlibliblog4cxx-so-in-ros/
-RUN ln -s /usr/lib/arm-linux-gnueabihf/liblog4cxx.so /usr/lib/
+# RUN ln -s /usr/lib/arm-linux-gnueabihf/liblog4cxx.so /usr/lib/
 
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
