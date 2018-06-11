@@ -49,7 +49,7 @@ RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 
 RUN pip install --upgrade --user \
-    platformio \
+    platformio pillow networkx \
     PyContracts==1.7.15 \
     DecentLogs==1.1.2\
     QuickApp==1.3.8 \
@@ -64,13 +64,14 @@ RUN rosdep update
 RUN mkdir /home/software
 
 COPY . /home/software/
-
 COPY ./docker/ros_entrypoint.sh .
+RUN git clone https://github.com/duckietown/duckiefleet /home/duckiefleet
 
-RUN /bin/bash -c "source /opt/ros/kinetic/setup.bash && catkin_make -C /home/software/catkin_ws/"
-
-RUN echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
 RUN echo "source /home/software/environment.sh" >> ~/.bashrc
+RUN echo "export DUCKIEFLEET_ROOT=/home/duckiefleet" >> ~/.bashrc
+RUN echo "cd /home/software" >> ~/.bashrc
+
+RUN /bin/bash -c "make build-catkin-parallel-max build-machines"
 
 RUN [ "cross-build-end" ]
 
