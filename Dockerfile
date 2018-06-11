@@ -27,7 +27,7 @@ RUN apt-get install -yq --no-install-recommends --fix-missing \
 
 # System dependencies
 RUN apt-get install -yq --no-install-recommends --fix-missing \
-    sudo locales locales-all build-essential i2c-tools net-tools \
+    sudo locales locales-all build-essential i2c-tools net-tools iputils-ping \
     etckeeper emacs vim byobu zsh git git-extras htop atop nethogs iftop apt-file ntpdate gfortran \
     libxslt-dev libxml2-dev \
     libblas-dev liblapack-dev libatlas-base-dev libyaml-cpp-dev libpcl-dev libvtk6-dev libboost-all-dev
