@@ -70,7 +70,7 @@ COPY ./docker/ros_entrypoint.sh .
 RUN /bin/bash -c "source /opt/ros/kinetic/setup.bash && catkin_make -C /home/software/catkin_ws/"
 
 RUN echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
-RUN echo "source /home/environment.sh" >> ~/.bashrc
+RUN echo "source /home/software/environment.sh" >> ~/.bashrc
 
 RUN [ "cross-build-end" ]
 
