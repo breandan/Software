@@ -37,7 +37,7 @@ RUN apt-get install -yq --no-install-recommends --fix-missing \
 RUN apt-get install -yq --no-install-recommends --fix-missing \
     python-dev python-pip ipython python-sklearn python-smbus python-termcolor python-tables \
     python-lxml python-bs4 python-openssl python-service-identity python-rosdep python-catkin-tools \    
-    python-setuptools
+    python-setuptools python-frozendict
 
 # Cleanup packages list
 RUN apt-get clean && rm -rf /var/lib/apt/lists
