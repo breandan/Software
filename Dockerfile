@@ -76,4 +76,4 @@ RUN [ "cross-build-end" ]
 
 ENTRYPOINT ["bash", "ros_entrypoint.sh"]
 
-CMD ["bash"]
+CMD ["byobu"]
