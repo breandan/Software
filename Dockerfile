@@ -27,7 +27,7 @@ RUN apt-get install -yq --no-install-recommends --fix-missing \
 
 # System dependencies
 RUN apt-get install -yq --no-install-recommends --fix-missing \
-    sudo locales locales-all build-essential i2c-tools net-tools \
+    sudo locales locales-all build-essential i2c-tools net-tools iputils-ping \
     etckeeper emacs vim byobu zsh git git-extras htop atop nethogs iftop apt-file ntpdate gfortran \
     libxslt-dev libxml2-dev \
     libblas-dev liblapack-dev libatlas-base-dev libyaml-cpp-dev libpcl-dev libvtk6-dev libboost-all-dev
@@ -37,7 +37,7 @@ RUN apt-get install -yq --no-install-recommends --fix-missing \
 RUN apt-get install -yq --no-install-recommends --fix-missing \
     python-dev python-pip ipython python-sklearn python-smbus python-termcolor python-tables \
     python-lxml python-bs4 python-openssl python-service-identity python-rosdep python-catkin-tools \    
-    python-setuptools
+    python-setuptools python-frozendict
 
 # Cleanup packages list
 RUN apt-get clean && rm -rf /var/lib/apt/lists
@@ -49,7 +49,7 @@ RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 
 RUN pip install --upgrade --user \
-    platformio \
+    platformio pillow networkx \
     PyContracts==1.7.15 \
     DecentLogs==1.1.2\
     QuickApp==1.3.8 \
@@ -64,16 +64,17 @@ RUN rosdep update
 RUN mkdir /home/software
 
 COPY . /home/software/
-
 COPY ./docker/ros_entrypoint.sh .
+RUN git clone https://github.com/duckietown/duckiefleet /home/duckiefleet
 
-RUN /bin/bash -c "source /opt/ros/kinetic/setup.bash && catkin_make -C /home/software/catkin_ws/"
+RUN echo "source /home/software/environment.sh" >> ~/.bashrc
+RUN echo "export DUCKIEFLEET_ROOT=/home/duckiefleet" >> ~/.bashrc
+RUN echo "cd /home/software" >> ~/.bashrc
 
-RUN echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
-RUN echo "source /home/environment.sh" >> ~/.bashrc
+RUN /bin/bash -c "make build-catkin-parallel-max build-machines"
 
 RUN [ "cross-build-end" ]
 
 ENTRYPOINT ["bash", "ros_entrypoint.sh"]
 
-CMD ["bash"]
+CMD ["byobu"]
