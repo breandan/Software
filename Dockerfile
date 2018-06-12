@@ -35,20 +35,19 @@ RUN apt-get install -yq --no-install-recommends --fix-missing \
 # Python Dependencies
 # https://github.com/duckietown/duckuments/blob/dd3c5229526bcbb3e2f6cacc813b1313e7a4dbbc/docs/atoms_17_opmanual_duckiebot/atoms_17_setup_duckiebot_DB17-jwd/1_1_reproducing_ubuntu_image.md#install-packages
 RUN apt-get install -yq --no-install-recommends --fix-missing \
-    python-dev python-pip ipython python-sklearn python-smbus python-termcolor python-tables \
-    python-lxml python-bs4 python-openssl python-service-identity python-rosdep python-catkin-tools \    
-    python-setuptools python-frozendict
+    python-pip \
+    python-dev ipython python-sklearn python-smbus python-termcolor python-tables python-frozendict \
+    python-lxml python-bs4 python-openssl python-service-identity python-rosdep python-catkin-tools 
 
 # Cleanup packages list
 RUN apt-get clean && rm -rf /var/lib/apt/lists
     
-# http://rettgergalactic.com/blog/2016/01/fixing-no-rule-to-make-target-usrlibliblog4cxx-so-in-ros/
-#RUN ln -s /usr/lib/arm-linux-gnueabihf/liblog4cxx.so /usr/lib/
-
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 
-RUN pip install --upgrade --user \
+RUN pip install --upgrade pip wheel
+
+RUN pip install --upgrade \
     platformio pillow networkx \
     PyContracts==1.7.15 \
     DecentLogs==1.1.2\
