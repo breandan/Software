@@ -43,7 +43,7 @@ RUN apt-get install -yq --no-install-recommends --fix-missing \
 RUN apt-get clean && rm -rf /var/lib/apt/lists
     
 # http://rettgergalactic.com/blog/2016/01/fixing-no-rule-to-make-target-usrlibliblog4cxx-so-in-ros/
-# RUN ln -s /usr/lib/arm-linux-gnueabihf/liblog4cxx.so /usr/lib/
+RUN ln -s /usr/lib/arm-linux-gnueabihf/liblog4cxx.so /usr/lib/
 
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
@@ -67,14 +67,14 @@ COPY . /home/software/
 COPY ./docker/ros_entrypoint.sh .
 RUN git clone https://github.com/duckietown/duckiefleet /home/duckiefleet
 
+RUN /bin/bash -c "source /home/software/environment.sh && catkin_make -C /home/software/catkin_ws/"
+
 RUN echo "source /home/software/environment.sh" >> ~/.bashrc
 RUN echo "export DUCKIEFLEET_ROOT=/home/duckiefleet" >> ~/.bashrc
 RUN echo "cd /home/software" >> ~/.bashrc
-
-RUN /bin/bash -c "cd /home/software && source environment.sh && make build-catkin-parallel-max build-machines"
 
 RUN [ "cross-build-end" ]
 
 ENTRYPOINT ["bash", "ros_entrypoint.sh"]
 
-CMD ["byobu"]
+CMD ["bash"]
