@@ -7,8 +7,6 @@ RUN [ "cross-build-start" ]
 RUN mkdir /home/software
 COPY . /home/software/
 
-RUN git clone https://github.com/duckietown/duckiefleet /home/duckiefleet
-
 RUN /bin/bash -c "source /home/software/environment.sh && catkin_make -C /home/software/catkin_ws/"
 
 RUN echo $'\n\
@@ -17,6 +15,6 @@ RUN echo $'\n\
     cd /home/software \n\
     ' >> ~/.bashrc
 
-RUN [ "cross-build-end" ]
+RUN git clone https://github.com/duckietown/duckiefleet /home/duckiefleet
 
-CMD ["bash", "byobu"]
+RUN [ "cross-build-end" ]
