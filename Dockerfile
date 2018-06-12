@@ -71,7 +71,7 @@ RUN echo "source /home/software/environment.sh" >> ~/.bashrc
 RUN echo "export DUCKIEFLEET_ROOT=/home/duckiefleet" >> ~/.bashrc
 RUN echo "cd /home/software" >> ~/.bashrc
 
-RUN /bin/bash -c "make build-catkin-parallel-max build-machines"
+RUN /bin/bash -c "cd /home/software && source environment.sh && make build-catkin-parallel-max build-machines"
 
 RUN [ "cross-build-end" ]
 
