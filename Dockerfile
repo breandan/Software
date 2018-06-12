@@ -69,9 +69,11 @@ RUN git clone https://github.com/duckietown/duckiefleet /home/duckiefleet
 
 RUN /bin/bash -c "source /home/software/environment.sh && catkin_make -C /home/software/catkin_ws/"
 
-RUN echo "source /home/software/environment.sh" >> ~/.bashrc
-RUN echo "export DUCKIEFLEET_ROOT=/home/duckiefleet" >> ~/.bashrc
-RUN echo "cd /home/software" >> ~/.bashrc
+RUN echo $'\n\
+    source /home/software/environment.sh \n\
+    export DUCKIEFLEET_ROOT=/home/duckiefleet \n\
+    cd /home/software \n\
+    ' >> ~/.bashrc
 
 RUN [ "cross-build-end" ]
 
