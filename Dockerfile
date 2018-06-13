@@ -18,5 +18,3 @@ RUN echo $'\n\
 RUN git clone https://github.com/duckietown/duckiefleet /home/duckiefleet
 
 RUN [ "cross-build-end" ]
-
-CMD ["bash"]
