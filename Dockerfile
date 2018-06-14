@@ -17,6 +17,4 @@ RUN echo $'\n\
 
 RUN git clone https://github.com/duckietown/duckiefleet /home/duckiefleet
 
-RUN cd /home/software && ./dependencies_for_duckiebot.sh && make build-machines
-
 RUN [ "cross-build-end" ]
