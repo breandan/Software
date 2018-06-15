@@ -7,7 +7,7 @@ RUN [ "cross-build-start" ]
 RUN mkdir /home/software
 COPY . /home/software/
 
-RUN /bin/bash -c "source /home/software/environment.sh && catkin_make -C /home/software/catkin_ws/"
+RUN /bin/bash -c "cd /home/software/ && source environment.sh && catkin_make -C catkin_ws/"
 
 RUN echo $'\n\
     source /home/software/environment.sh \n\
@@ -17,6 +17,6 @@ RUN echo $'\n\
 
 RUN git clone https://github.com/duckietown/duckiefleet /home/duckiefleet
 
-RUN /bin/bash -c "source /home/software/environment.sh && make build-machines"
+RUN /bin/bash -c "cd /home/software/environment.sh && source environment.sh && make build-machines"
 
 RUN [ "cross-build-end" ]
