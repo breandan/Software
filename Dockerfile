@@ -17,6 +17,6 @@ RUN echo $'\n\
 
 RUN git clone https://github.com/duckietown/duckiefleet /home/duckiefleet
 
-RUN /bin/bash -c "cd /home/software/environment.sh && source environment.sh && make build-machines"
+RUN /bin/bash -c "cd /home/software/ && source environment.sh && make build-machines"
 
 RUN [ "cross-build-end" ]
