@@ -7,17 +7,17 @@ RUN [ "cross-build-start" ]
 RUN mkdir /home/software
 COPY . /home/software/
 
-RUN /bin/bash -c "cd /home/software/ && source environment.sh && catkin_make -C catkin_ws/"
-
-RUN echo $'\n\
+RUN echo '\n\
 source /home/software/environment.sh \n\
 source /home/software/set_ros_master.sh \n\
 export DUCKIEFLEET_ROOT=/home/duckiefleet \n\
 cd /home/software' >> ~/.bashrc
 
+RUN /bin/bash -c "cd /home/software/ && source environment.sh && catkin_make -C catkin_ws/"
+
 RUN git clone https://github.com/duckietown/duckiefleet /home/duckiefleet
 
-RUN echo $'owner: docker\n\
+RUN echo 'owner: docker\n\
 hostname: localhost\n\
 username: root\n\
 description: Docker configuration.\n\
