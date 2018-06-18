@@ -23,6 +23,7 @@ username: root\n\
 description: Docker configuration.\n\
 log:' >> /home/duckiefleet/robots/docker.robot.yaml
 
+ENV DUCKIEFLEET_ROOT=/home/duckiefleet
 RUN /bin/bash -c "cd /home/software/ && source environment.sh && make build-machines"
 
 RUN sh-keygen -q -t rsa -N '' -f /id_rsa && ssh-copy-id ~/.ssh/id_rsa.pub localhost
