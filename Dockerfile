@@ -11,6 +11,7 @@ RUN /bin/bash -c "cd /home/software/ && source environment.sh && catkin_make -C 
 
 RUN echo $'\n\
     source /home/software/environment.sh \n\
+    source /home/software/set_ros_master.sh \n\
     export DUCKIEFLEET_ROOT=/home/duckiefleet \n\
     cd /home/software \n\
     ' >> ~/.bashrc
