@@ -13,7 +13,7 @@ source /home/software/set_ros_master.sh \n\
 export DUCKIEFLEET_ROOT=/home/duckiefleet \n\
 cd /home/software' >> ~/.bashrc
 
-RUN /bin/bash -c "cd /home/software/ && source environment.sh && catkin_make -C catkin_ws/"
+RUN /bin/bash -c "cd /home/software/ && catkin_make -C catkin_ws/"
 
 RUN git clone https://github.com/duckietown/duckiefleet /home/duckiefleet
 
@@ -26,6 +26,6 @@ log:' >> /home/duckiefleet/robots/docker.robot.yaml
 ENV DUCKIEFLEET_ROOT=/home/duckiefleet
 RUN /bin/bash -c "cd /home/software/ && source environment.sh && make build-machines"
 
-RUN ssh-keygen -q -t rsa -N '' && ssh-copy-id -i ~/.ssh/id_rsa.pub localhost
+RUN ssh-keygen -q -t rsa -N '' -f /root/.ssh/id_rsa && ssh-copy-id -i ~/.ssh/id_rsa.pub localhost
 
 RUN [ "cross-build-end" ]
