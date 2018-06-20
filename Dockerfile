@@ -13,7 +13,7 @@ source /home/software/set_ros_master.sh \n\
 export DUCKIEFLEET_ROOT=/home/duckiefleet \n\
 cd /home/software' >> ~/.bashrc
 
-RUN /bin/bash -c "cd /home/software/ && catkin_make -C catkin_ws/"
+RUN /bin/bash -c "cd /home/software/ && source environment.sh && catkin_make -C catkin_ws/"
 
 RUN git clone https://github.com/duckietown/duckiefleet /home/duckiefleet
 
