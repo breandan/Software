@@ -26,6 +26,11 @@ log:' >> /home/duckiefleet/robots/docker.robot.yaml
 ENV DUCKIEFLEET_ROOT=/home/duckiefleet
 RUN /bin/bash -c "cd /home/software/ && source environment.sh && make build-machines"
 
+echo "dtparam=i2c1=on" | tee -a /boot/config.txt
+echo "dtparam=i2c_arm=on" | tee -a /boot/config.txt
+echo "i2c-bcm2708" | tee -a /etc/modules
+echo "i2c-dev" | tee -a /etc/modules
+
 # RUN ssh-keygen -q -t rsa -N '' -f /root/.ssh/id_rsa && ssh-copy-id -i ~/.ssh/id_rsa.pub localhost
 
 RUN [ "cross-build-end" ]
