@@ -11,7 +11,8 @@ RUN echo '\n\
 source /home/software/environment.sh \n\
 export DUCKIEFLEET_ROOT=/home/duckiefleet \n\
 export ROS_MASTER_URI=http://localhost:11311/ \n\
-cd /home/software' >> ~/.bashrc
+cd /home/software \n\
+cat misc/duckie.art' >> ~/.bashrc
 
 RUN /bin/bash -c "cd /home/software/ && source environment.sh && catkin_make -C catkin_ws/"
 
@@ -22,4 +23,3 @@ RUN echo '<launch> <arg name="env_script_path" default="~/duckietown/environment
 RUN [ "cross-build-end" ]
 
 CMD [ "/bin/bash" ]
-
