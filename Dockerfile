@@ -13,7 +13,7 @@ export DUCKIEFLEET_ROOT=/home/duckiefleet \n\
 export ROS_MASTER_URI=http://localhost:11311/ \n\
 cd /home/software' >> ~/.bashrc
 
-RUN /bin/bash -c "cd /home/software/ && source ~/.bashrc && catkin_make -C catkin_ws/"
+RUN /bin/bash -c "cd /home/software/ && source environment.sh && catkin_make -C catkin_ws/"
 
 RUN git clone https://github.com/duckietown/duckiefleet /home/duckiefleet
 
