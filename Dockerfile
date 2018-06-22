@@ -11,6 +11,7 @@ RUN echo '\n\
 source /home/software/environment.sh \n\
 export DUCKIEFLEET_ROOT=/home/duckiefleet \n\
 export ROS_MASTER_URI=http://localhost:11311/ \n\
+export VEHICLE_NAME=docker \n\
 cd /home/software \n\
 cat misc/duckie.art' >> ~/.bashrc
 
