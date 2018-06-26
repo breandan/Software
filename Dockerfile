@@ -1,4 +1,4 @@
-FROM duckietown/duckieos
+FROM duckietown/monolith
 
 MAINTAINER Breandan Considine breandan.considine@umontreal.ca
 
