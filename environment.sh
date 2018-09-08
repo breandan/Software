@@ -12,7 +12,7 @@ echo "Activating ROS with shell: $SHELL"
 source /opt/ros/kinetic/setup.$shell
 
 if [ -f /.dockerenv ]; then
-    export ROS_HOSTNAME=localhost
+    export ROS_HOSTNAME=$HOSTNAME
 else
     export ROS_HOSTNAME=$HOSTNAME.local
 fi
