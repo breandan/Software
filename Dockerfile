@@ -1,26 +1,21 @@
-FROM duckietown/monolith
+FROM duckietown/rpi-ros-kinetic-dev
 
 MAINTAINER Breandan Considine breandan.considine@umontreal.ca
 
 RUN [ "cross-build-start" ]
 
+RUN pip install --upgrade matplotlib
+
 RUN mkdir /home/software
 COPY . /home/software/
+COPY docker/machines.xml /home/software/catkin_ws/src/00-infrastructure/duckietown/machines
 
-RUN echo '\n\
-source /home/software/environment.sh \n\
-export DUCKIEFLEET_ROOT=/home/duckiefleet \n\
-export ROS_MASTER_URI=http://localhost:11311/ \n\
-export VEHICLE_NAME=docker \n\
-cd /home/software \n\
-cat misc/duckie.art' >> ~/.bashrc
+RUN /bin/bash -c "cd /home/software/ && source /opt/ros/kinetic/setup.bash && catkin_make -C catkin_ws/"
 
-RUN /bin/bash -c "cd /home/software/ && source environment.sh && catkin_make -C catkin_ws/"
-
-RUN git clone https://github.com/duckietown/duckiefleet /home/duckiefleet
-
-RUN echo '<launch> <arg name="env_script_path" default="~/duckietown/environment.sh"/> <machine name="docker" address="localhost" user="root" env-loader="$(arg env_script_path)"/></launch>' > /home/software/catkin_ws/src/00-infrastructure/duckietown/machines
+RUN echo "source /home/software/docker/env.sh" >> ~/.bashrc
 
 RUN [ "cross-build-end" ]
+
+WORKDIR /home/software
 
 CMD [ "/bin/bash" ]
