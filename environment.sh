@@ -11,14 +11,6 @@ shell=`basename $SHELL`
 echo "Activating ROS with shell: $SHELL"
 source /opt/ros/kinetic/setup.$shell
 
-if [ -f /.dockerenv ]; then
-    export ROS_HOSTNAME=$HOSTNAME
-else
-    export ROS_HOSTNAME=$HOSTNAME.local
-fi
-
-echo "Set ROS_HOSTNAME to: $ROS_HOSTNAME"
-
 export DUCKIETOWN_ROOT=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 echo "Set DUCKIETOWN_ROOT to: $DUCKIETOWN_ROOT"
 
